@@ -11,6 +11,7 @@ class ImageHandler:
         self.watermark_filename = None
         self.watermark_pil_image = None
         self.watermark_size = 2
+        self.watermark_opacity = 0.5
 
 
     def get_img_path(self):
@@ -55,7 +56,7 @@ class ImageHandler:
 
             # lower the watermark's opacity
             r, g, b, a = self.watermark_pil_image.split()
-            a = a.point(lambda p: int(p * 0.5))
+            a = a.point(lambda p: int(p * self.watermark_opacity))
             self.watermark_pil_image = Image.merge('RGBA', (r, g, b, a))
 
             watermark_pos = (25,25)
