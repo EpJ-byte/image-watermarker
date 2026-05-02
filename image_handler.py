@@ -10,6 +10,7 @@ class ImageHandler:
         self.pil_image = None
         self.watermark_filename = None
         self.watermark_pil_image = None
+        self.watermark_size = 2
 
 
     def get_img_path(self):
@@ -36,12 +37,21 @@ class ImageHandler:
             messagebox.showinfo("Error", "No watermark image was uploaded, upload one before you import your main image!")
 
     def watermark_image(self):
-        # ensures a watermark has been uploaded and a image is available for watermarking
+        # ensures a watermark has been uploaded and an image is available for watermarking
         if self.pil_image is not None and self.watermark_filename is not None:
+            # determine the watermark size
+            if self.watermark_size == 1:
+                resize_factor = 50
+            elif self.watermark_size == 2:
+                resize_factor = 100
+            elif self.watermark_size == 3:
+                resize_factor = 200
+            else:
+                resize_factor = 400
             # convert watermark into a pillow image and format the size
             self.watermark_pil_image = Image.open(self.watermark_filename).convert('RGBA')
             aspect_ratio = self.watermark_pil_image.size[0] / self.watermark_pil_image.size[1]
-            self.watermark_pil_image = self.watermark_pil_image.resize((50, int(50 * aspect_ratio)), Image.Resampling.LANCZOS)
+            self.watermark_pil_image = self.watermark_pil_image.resize((resize_factor, int(resize_factor * aspect_ratio)), Image.Resampling.LANCZOS)
 
             # lower the watermark's opacity
             r, g, b, a = self.watermark_pil_image.split()
@@ -68,4 +78,7 @@ class ImageHandler:
         else:
             messagebox.showinfo("Error", "No image was uploaded, so no image could be exported")
 
-
+    # restarts the image to allow the watermark size to change properly
+    def restart_image(self):
+        self.pil_image = Image.open(self.filename)
+        self.watermark_image()
