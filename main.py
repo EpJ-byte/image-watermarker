@@ -47,7 +47,7 @@ def preview_image():
 
         # create a pillow image and resize it
         display_image = ih.pil_image
-        aspect_ratio = display_image.size[0] / display_image.size[1]
+        aspect_ratio = display_image.size[1] / display_image.size[0]
         resized_image = display_image.resize((400, int(400 * aspect_ratio)), Image.Resampling.LANCZOS)
 
         tk_image = ImageTk.PhotoImage(resized_image)
