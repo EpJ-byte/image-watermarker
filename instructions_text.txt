@@ -1,0 +1,2 @@
+To use image-watermarker properly, upload the image you want your watermark to be (via the import watermark image button), then import your main image (via the import image button) and preview the finished product by clicking the preview image button. Once you're happy with the way it looks, export the image via the export image button.
+Note: after making changes to the watermark (e.g. after changing the opacity or size) re-click the image preview button.

@@ -96,6 +96,13 @@ watermark_opacity.bind('<Return>', get_watermark_opacity)
 watermark_opacity.insert(0, 'press enter/return to update')
 watermark_opacity.grid(column=4, row=1)
 
+# instructions message
+with open('instructions_text.txt', 'r') as file:
+    instructions = str(file.read())
+
+messagebox.showinfo("How to use image-watermarker",
+                    instructions)
+
 root.mainloop()
 
 #NOTES FOR NEXT TIME: ensure all of your widgets have the same parent, or they won't render properly
